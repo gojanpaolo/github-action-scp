@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { NodeSSH } from 'node-ssh';
+import node_ssh from 'node-ssh';
 import fs from "fs";
 import {keyboardFunction} from './keyboard';
 
@@ -42,7 +42,7 @@ async function connect(
   passphrase: string,
   tryKeyboard: boolean
 ) {
-  const ssh = new NodeSSH();
+  const ssh = new node_ssh();
   console.log(`Establishing a SSH connection to ${host}.`);
 
   try {
@@ -66,7 +66,7 @@ async function connect(
 }
 
 async function scp(
-  ssh: NodeSSH,
+  ssh: node_ssh,
   local: string,
   remote: string,
   concurrency: number,
@@ -92,7 +92,7 @@ async function scp(
   }
 }
 async function putDirectory(
-  ssh: NodeSSH,
+  ssh: node_ssh,
   local: string,
   remote: string,
   concurrency = 3,
@@ -135,7 +135,7 @@ async function putDirectory(
 }
 
 async function putFile(
-  ssh: NodeSSH,
+  ssh: node_ssh,
   local: string,
   remote: string,
   verbose = true
