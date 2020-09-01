@@ -29,6 +29,7 @@ async function run() {
     );
     await scp(ssh, local, remote, concurrency, verbose, recursive);
   } catch (err) {
+    console.log('error here');
     core.setFailed(err);
   }
 }
@@ -77,7 +78,7 @@ async function scp(
 
   try {
     if (isDirectory(local)) {
-      await ssh.execCommand(`rm -rf ${remote}`);
+      await ssh.execCommand(`rm -r ${remote}`);
       console.log('deleted all files');
       await putDirectory(ssh, local, remote, concurrency, verbose, recursive);
     } else {
