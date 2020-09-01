@@ -29,7 +29,6 @@ async function run() {
     );
     await scp(ssh, local, remote, concurrency, verbose, recursive);
   } catch (err) {
-    console.log('error here');
     core.setFailed(err);
   }
 }
@@ -78,13 +77,12 @@ async function scp(
 
   try {
     if (isDirectory(local)) {
-      await ssh.execCommand(`rm -r ${remote}`);
+      await ssh.execCommand(`rmdir /s /q ${remote}`);
       console.log('deleted all files');
       await putDirectory(ssh, local, remote, concurrency, verbose, recursive);
     } else {
       await putFile(ssh, local, remote, verbose);
     }
-    ssh.dispose();
     console.log('✅ scp Action finished.');
   } catch (err) {
     console.error(`⚠️ An error happened:(.`, err.message, err.stack);
