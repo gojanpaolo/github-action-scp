@@ -104,6 +104,7 @@ async function putDirectory(
   const status = await ssh.putDirectory(local, remote, {
     recursive: recursive,
     concurrency: concurrency,
+    validate: (p: string) => true,
     tick: function(localPath, remotePath, error) {
       if (error) {
         if (verbose) {
