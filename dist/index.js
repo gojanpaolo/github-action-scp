@@ -9791,6 +9791,10 @@ Client.prototype.connect = function(cfg) {
   }).on('timeout', function() {
     self.emit('timeout');
   }).on('error', function(err) {
+    if(err.code === 'ECONNRESET') {
+      console.log(err);
+      return;
+    }
     clearTimeout(self._readyTimeout);
     err.level = 'client-socket';
     self.emit('error', err);
