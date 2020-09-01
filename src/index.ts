@@ -83,6 +83,7 @@ async function scp(
     } else {
       await putFile(ssh, local, remote, verbose);
     }
+    ssh.dispose();
     console.log('✅ scp Action finished.');
   } catch (err) {
     console.error(`⚠️ An error happened:(.`, err.message, err.stack);

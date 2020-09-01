@@ -9297,6 +9297,7 @@ function scp(ssh, local, remote, concurrency, verbose = true, recursive = true) 
             else {
                 yield putFile(ssh, local, remote, verbose);
             }
+            ssh.dispose();
             console.log('✅ scp Action finished.');
         }
         catch (err) {
