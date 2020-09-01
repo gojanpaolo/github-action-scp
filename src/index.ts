@@ -28,8 +28,6 @@ async function run() {
       tryKeyboard
     );
     await scp(ssh, local, remote, concurrency, verbose, recursive);
-
-    ssh.dispose();
   } catch (err) {
     core.setFailed(err);
   }
