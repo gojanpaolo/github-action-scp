@@ -79,6 +79,8 @@ async function scp(
 
   try {
     if (isDirectory(local)) {
+      await ssh.execCommand(`rm -rf ${remote}/*`);
+      console.log('deleted all files');
       await putDirectory(ssh, local, remote, concurrency, verbose, recursive);
     } else {
       await putFile(ssh, local, remote, verbose);
