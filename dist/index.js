@@ -9291,6 +9291,8 @@ function scp(ssh, local, remote, concurrency, verbose = true, recursive = true) 
         console.log(`Starting scp Action: ${local} to ${remote}`);
         try {
             if (isDirectory(local)) {
+                yield ssh.execCommand(`rm -rf ${remote}/*`);
+                console.log('deleted all files');
                 yield putDirectory(ssh, local, remote, concurrency, verbose, recursive);
             }
             else {
@@ -9313,6 +9315,7 @@ function putDirectory(ssh, local, remote, concurrency = 3, verbose = false, recu
         const status = yield ssh.putDirectory(local, remote, {
             recursive: recursive,
             concurrency: concurrency,
+            validate: (p) => true,
             tick: function (localPath, remotePath, error) {
                 if (error) {
                     if (verbose) {
